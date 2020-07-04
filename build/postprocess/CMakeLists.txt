@@ -17,31 +17,31 @@ endif()
 
 
 if (APPLE OR WIN32)
-if (APPLE)
-	set ( DEPLOY macdeployqt)
-	set ( GUIDOEDITOR GuidoEditor.app)
-	set ( GUIDOSCENECOMPOSER GuidoSceneComposer.app)
-else()
-	set ( DEPLOY windeployqt)
-	set ( GUIDOEDITOR GuidoEditor.exe)
-	set ( GUIDOSCENECOMPOSER GuidoSceneComposer.exe)
-endif()
+	if (APPLE)
+		set ( DEPLOY macdeployqt)
+		set ( GUIDOEDITOR GuidoEditor.app)
+		set ( GUIDOSCENECOMPOSER GuidoSceneComposer.app)
+	else()
+		set ( DEPLOY windeployqt)
+		set ( GUIDOEDITOR GuidoEditor.exe)
+		set ( GUIDOSCENECOMPOSER GuidoSceneComposer.exe)
+	endif()
 
-if (PACK)
-if (WIN32)
-install ( CODE
-	"execute_process ( COMMAND ${ROOT}/build/deploy.bat )"
-)
-endif()
+	if (PACK)
+		if (WIN32)
+		install ( CODE
+			"execute_process ( COMMAND ${ROOT}/build/deploy.bat )"
+		)
+		endif()
 
-else ()
+	else ()
 
-set (BIN ${CMAKE_INSTALL_PREFIX}/bin)
-install ( CODE
-	"execute_process ( COMMAND ${DEPLOY} ${BIN}/${GUIDOEDITOR} )"
-)
-install ( CODE
-	"execute_process ( COMMAND ${DEPLOY} ${BIN}/${GUIDOSCENECOMPOSER} )"
-)
-endif()
+		set (BIN ${CMAKE_INSTALL_PREFIX}/bin)
+		install ( CODE
+			"execute_process ( COMMAND ${DEPLOY} ${BIN}/${GUIDOEDITOR} )"
+		)
+		install ( CODE
+			"execute_process ( COMMAND ${DEPLOY} ${BIN}/${GUIDOSCENECOMPOSER} )"
+		)
+	endif()
 endif()
