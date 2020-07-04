@@ -16,6 +16,7 @@
 #include <iostream>
 #include <string>
 
+
 #include "JuceSystem.h"
 #include "JuceDevice.h"
 #include "JuceFont.h"
@@ -25,6 +26,8 @@
 #if __DebugDevice
 #include "DebugDevice.h"
 #endif
+
+#include "../../../src/midi2guido/include/Midi2GUIDO.h"
 
 using namespace std;
 

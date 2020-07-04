@@ -14,7 +14,6 @@
 
 */
 
-#ifdef MIDIEXPORT
 
 #include <string>
 #include <map>
@@ -67,6 +66,5 @@ class MIDI2GMNConverter {
 
 /*! @} */
 
-#endif
 
 #endif

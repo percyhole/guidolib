@@ -9,14 +9,15 @@
               pluginAUExportPrefix="JuceProjectAU" pluginAUViewClass="JuceProjectAU_V1"
               pluginRTASCategory="" bundleIdentifier="com.grame.GuidoViewer"
               jucerVersion="5.4.7" defines="JUCE_DONT_DEFINE_MACROS" includeBinaryInAppConfig="1"
-              pluginFormats="buildVST,buildAU" headerPath="../../../../../src/engine/include&#10;../../../Device">
+              pluginFormats="buildVST,buildAU" headerPath="../../../../../src/engine/include&#10;../../../Device&#10;../../../../../src/mdi2guido/include&#10;../../../../../src/mdi2guido/lib&#10;../../../../../src/engine/abstract">
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" vstFolder="~/SDKs/vstsdk2.4" rtasFolder="~/SDKs/PT_80_SDK"
-               objCExtraSuffix="WzPHFY" extraLinkerFlags="-F../../../../../build/lib  -framework GUIDOEngine&#10;"
+               objCExtraSuffix="WzPHFY" extraLinkerFlags="midisharelight&#10;-F../../../../../build/lib  -framework GUIDOEngine&#10;"
                bigIcon="IAUjPh">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="GuidoViewer"
-                       osxCompatibility="10.6 SDK" libraryPath="../../../../../build/lib"/>
+                       osxCompatibility="10.6 SDK" libraryPath="../../../../../build/lib&#10;../../../../../src/midisharelight/macos"
+                       headerPath="./../../../../src/midi2guido/include&#10;../../../../../src/midi2guido/lib&#10;../../../../../src/midisharelight"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="2" targetName="GuidoViewer"
                        osxCompatibility="10.6 SDK" osxArchitecture="64BitUniversal"
                        binaryPath="" libraryPath="/Users/fober/src/guido/guidolib/build/lib"/>
@@ -84,6 +85,12 @@
   </EXPORTFORMATS>
   <MAINGROUP id="cQ5GjM" name="GuidoViewer">
     <GROUP id="r7RLot" name="Source">
+      <FILE id="J9cbJu" name="MIDI2GMNConverter.h" compile="0" resource="0"
+            file="../../../src/midi2guido/lib/MIDI2GMNConverter.h"/>
+      <FILE id="SfkzIb" name="MIDI2GMNConverter.cpp" compile="1" resource="0"
+            file="../../../src/midi2guido/lib/MIDI2GMNConverter.cpp"/>
+      <FILE id="OOeYzl" name="Midi2GUIDO.h" compile="0" resource="0" file="../../../src/midi2guido/include/Midi2GUIDO.h"/>
+      <FILE id="FywZwb" name="Midi2GUIDO.cpp" compile="1" resource="0" file="../../../src/midi2guido/lib/Midi2GUIDO.cpp"/>
       <FILE id="ftyN5Q" name="GuidoViewer.cpp" compile="1" resource="0" file="Source/GuidoViewer.cpp"/>
       <FILE id="CXBTtP" name="GuidoViewer.h" compile="0" resource="0" file="Source/GuidoViewer.h"/>
       <FILE id="IAUjPh" name="gmnicon.png" compile="0" resource="1" file="Ressources/gmnicon.png"/>

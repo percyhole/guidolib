@@ -10,12 +10,12 @@
   research@grame.fr
 
 */
-#ifdef MIDIEXPORT
+
 
 #include <iostream>
 #include <string>
 
-#include "Midi2GUIDO.h"
+#include "../include/Midi2GUIDO.h"
 #include "MIDI2GMNConverter.h"
 #include "midifile.h"
 
@@ -26,7 +26,7 @@ using namespace std;
 // ==========================================================================
 // - Midi 2 Guido API
 // ==========================================================================
-GUIDOAPI(GuidoErrCode) GuidoMIDIFile2AR (const char* filename, int tracknum, string& outgmn)
+GUIDOAPI GuidoErrCode GuidoMIDIFile2AR (const char* filename, int tracknum, string& outgmn)
 {
 	MIDIFile mf;
 	if (!mf.Open(filename, MidiFileRead)) return guidoErrFileAccess;
@@ -35,6 +35,7 @@ GUIDOAPI(GuidoErrCode) GuidoMIDIFile2AR (const char* filename, int tracknum, str
 		mf.Close();
 		
 		if (seq) {
+            outgmn += "[\\systemFormat< dx=1cm> \\barFormat<\"system\"> \\clef<\"g\"> \\meter<\"4/4\", autoMeasuresNum=\"system\"> \\stemsAuto ";
 			MIDI2GMNConverter converter(mf.infos().time);
 			MidiEvPtr ev = FirstEv(seq);
 			while (ev) {
@@ -65,6 +66,7 @@ cout << "note OFF: " << Date(ev) << " - " << int(Pitch(ev)) << endl;
 				ev = Link(ev);
 			}
 			mf.midi()->FreeSeq (seq);
+            outgmn +="]";
 		}
 	}
 	else return guidoErrBadParameter;
@@ -73,24 +75,23 @@ cout << "note OFF: " << Date(ev) << " - " << int(Pitch(ev)) << endl;
 
 
 // ==========================================================================
-GUIDOAPI(MIDI2GMNConverter*) GuidoMIDI2GMNStart (short tpqn)
+GUIDOAPI MIDI2GMNConverter* GuidoMIDI2GMNStart (short tpqn)
 {
 	return new MIDI2GMNConverter(tpqn);
 }
 
-GUIDOAPI(string) GuidoMIDI2GMNStop (MIDI2GMNConverter* converter, int date)
+GUIDOAPI string GuidoMIDI2GMNStop (MIDI2GMNConverter* converter, int date)
 {
 	return converter ? converter->Stop (date) : "";
 }
 
-GUIDOAPI(string) GuidoMIDINoteOn2GMN (MIDI2GMNConverter* converter, int date, int pitch)
+GUIDOAPI string GuidoMIDINoteOn2GMN (MIDI2GMNConverter* converter, int date, int pitch)
 {
 	return converter ? converter->NoteOn2GMN (date, pitch) : "";
 }
 
-GUIDOAPI(string) GuidoMIDINoteOff2GMN (MIDI2GMNConverter* converter, int date, int pitch)
+GUIDOAPI string GuidoMIDINoteOff2GMN (MIDI2GMNConverter* converter, int date, int pitch)
 {
 	return converter ? converter->NoteOff2GMN (date, pitch) : "";
 }
 
-#endif

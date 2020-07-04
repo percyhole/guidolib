@@ -18,6 +18,8 @@
 #include "GuidoViewer.h"
 #include "MainWindow.h"
 
+#include "../../../src/midi2guido/include/Midi2GUIDO.h"
+
 using namespace std;
 using namespace juce;
 
@@ -45,6 +47,7 @@ PopupMenu GuidoViewer::getMenuForIndex (int menuIndex, const String& /*menuName*
 	if (menuIndex == 0)
 	{
 		menu.addCommandItem (commandManager, kOpen);
+        menu.addCommandItem (commandManager, kImport);
 //		menu.addCommandItem (commandManager, kPrint);
 		menu.addCommandItem (commandManager, kExport);
 		menu.addCommandItem (commandManager, kReload);
@@ -77,7 +80,7 @@ ApplicationCommandTarget* GuidoViewer::getNextCommandTarget()
 void GuidoViewer::getAllCommands (Array <CommandID>& commands)
 {
 	// this returns the set of all commands that this target can perform..
-	const CommandID ids[] = { kOpen, /*kPrint,*/ kExport, kReload };
+	const CommandID ids[] = { kOpen, kImport, /*kPrint,*/ kExport, kReload };
 	commands.addArray (ids, numElementsInArray (ids));
 }
 
@@ -95,6 +98,12 @@ void GuidoViewer::getCommandInfo (CommandID commandID, ApplicationCommandInfo& r
 			result.setTicked (false);
 			result.addDefaultKeypress ('o', ModifierKeys::commandModifier);
 			break;
+            
+        case kImport:
+            result.setInfo ("Import", "Import a midi file", generalCategory, 0);
+            result.setTicked (false);
+            result.addDefaultKeypress ('i', ModifierKeys::commandModifier);
+            break;
 
 //		case kPrint:
 //			result.setInfo ("Print", "Print the current score", generalCategory, 0);
@@ -130,6 +139,18 @@ String GuidoViewer::ChooseGmnFile()
 		file = fFileLocation.getFullPathName();
 	}
 	return file;
+}
+
+//-------------------------------------------------------------------------------
+String GuidoViewer::ChooseMidiFile()
+{
+    String file;
+    FileChooser chooser("Choose a Midi file", fFileLocation, "*.mid;*.midi");
+    if (chooser.browseForFileToOpen()) {
+        fFileLocation = chooser.getResult();
+        file = fFileLocation.getFullPathName();
+    }
+    return file;
 }
 
 //-------------------------------------------------------------------------------
@@ -200,6 +221,51 @@ void GuidoViewer::setFile (String file)
 }
 
 //-------------------------------------------------------------------------------
+void GuidoViewer::importFile (String file)
+{
+    if (file.length()) {
+
+        string gmnCode;
+        GuidoErrCode err = GuidoMIDIFile2AR (file.getCharPointer(), 0, gmnCode);
+        DBG(" ------------- \n" << gmnCode << "\n------------");
+//        const char* gmnCode = "{ [ { f, e2 } ], \
+//          [ \\staff<1>  \\stemsDown \\noteFormat<dx=-0.7hs>( { a, h&0 } ) ] ,\
+//            \
+//        [ \\staff<2> \\noteFormat<color=\"blue\">( { c, e, g, a } ) ]  }";
+        
+//        const char* gmnCode = "[\\meter<\"4/4\"> \\stemAuto c3*1/2 d2*1/8 c2*1/8 a1*1/2 c3*1/4 d2*1/8 c1*1/8 c3*1/4]";
+//        if (err == guidoNoErr)
+//        {
+//            GuidoErrCode err = setGMNCode (gmnCode);
+            err = setGMNCode (gmnCode.c_str());
+        
+            if (err == guidoNoErr)
+            {
+                fWindow->setName (file);
+            }
+            else
+            {
+                String msg = GuidoGetErrorString (err);
+                if (err == guidoErrParse) {
+                    msg += " line ";
+                    msg += GuidoGetParseErrorLine();
+                }
+                AlertWindow::showMessageBoxAsync (AlertWindow::WarningIcon, "Error", msg, "OK", this);
+            }
+//        }
+//        else
+//        {
+//            String msg = GuidoGetErrorString (err);
+//            if (err == guidoErrParse) {
+//                msg += " line ";
+//                msg += GuidoGetParseErrorLine();
+//            }
+//            AlertWindow::showMessageBoxAsync (AlertWindow::WarningIcon, "Error", msg, "OK", this);
+//        }
+    }
+}
+
+//-------------------------------------------------------------------------------
 // this is the ApplicationCommandTarget method that is used to actually perform one of our commands..
 bool GuidoViewer::perform (const InvocationInfo& info)
 {
@@ -209,6 +275,9 @@ bool GuidoViewer::perform (const InvocationInfo& info)
 			setFile( ChooseGmnFile());
 			break;
 
+        case kImport:
+            importFile( ChooseMidiFile());
+            break;
 //		case kPrint:
 //			break;
 

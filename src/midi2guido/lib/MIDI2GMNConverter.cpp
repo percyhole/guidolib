@@ -11,9 +11,10 @@
 
 */
 
-#ifdef MIDIEXPORT
+
 
 #include <sstream>
+#include <cmath>
 
 #include "MIDI2GMNConverter.h"
 #include "Fraction.h"
@@ -135,11 +136,13 @@ string	MIDI2GMNConverter::midiPitch2gmnPitch	(int pitch) const
 string	MIDI2GMNConverter::midiTime2gmnTime	(int interval) const
 {
 	if (interval < fMinimumTime) interval = fMinimumTime;
-	Fraction d (interval, fTicksPerQuarterNote * 4);
+    
+    auto roundedInterval = int(lround (interval / 120.0) * 120);
+    
+	Fraction d (roundedInterval, fTicksPerQuarterNote * 4);
 	d.normalize();
 	stringstream s;
 	s << d;
 	return s.str();
 }
 
-#endif

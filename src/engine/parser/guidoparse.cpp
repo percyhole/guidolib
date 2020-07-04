@@ -2126,5 +2126,8 @@ int guidoerror(YYLTYPE* loc, GuidoParser* p, const char*s) {
 	return 0;
 }
 
-int GuidoParser::_yyparse()		{ return yyparse (this); }
+int GuidoParser::_yyparse()
+{
+    return yyparse (this);
+}
 

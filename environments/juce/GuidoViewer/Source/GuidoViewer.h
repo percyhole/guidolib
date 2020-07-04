@@ -73,17 +73,20 @@ private:
 	File fFileLocation;
 	
 	String				ChooseGmnFile();
+    String              ChooseMidiFile();
 	bool				ChooseExportFile(File& file);
 	ImageFileFormat*	File2ImageFileFormat (const File& file);
 	void				setFile (String file);
+    void                importFile (String file);
 	void				export2Image (const File& file, ImageFileFormat* format);
 
     enum CommandIDs
     {
         kOpen		= 0x2000,
-        kPrint		= 0x2001,
-        kExport		= 0x2002,
-        kReload		= 0x2003,
+        kImport     = 0x2001,
+        kPrint		= 0x2002,
+        kExport		= 0x2003,
+        kReload		= 0x2004,
     };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GuidoViewer);
