@@ -22,6 +22,7 @@
 #include "GFontWin32.h"
 //#include "wingdi.h"
 
+#pragma comment(lib, "Msimg32.lib") 
 
 #define kTimeTableSize 1000
 static long fMeanTime[kTimeTableSize];

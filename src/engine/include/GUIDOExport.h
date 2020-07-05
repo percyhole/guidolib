@@ -20,14 +20,15 @@
 #  define GUIDOAPI
 
 #elif defined(WIN32) && !defined(GCC)
-
-# ifdef GUIDOExport
-#  define class_export		class _declspec (dllexport)
-#  define GUIDOAPI			_declspec (dllexport)
-# else
-#  define class_export		class _declspec (dllimport)
-#  define GUIDOAPI			_declspec (dllimport)
-# endif
+#  define class_export		class
+#  define GUIDOAPI
+//# ifdef GUIDOExport
+//#  define class_export		class _declspec (dllexport)
+//#  define GUIDOAPI			_declspec (dllexport)
+//# else
+//#  define class_export		class _declspec (dllimport)
+//#  define GUIDOAPI			_declspec (dllimport)
+//# endif
 
 #else
 

@@ -20,6 +20,8 @@
 
 #include "GFontWin32.h"
 
+#pragma comment(lib, "Msimg32.lib") 
+
 // --------------------------------------------------------------
 GFontWin32::GFontWin32( HFONT nativeFont, const char * faceName, 
 						int size, int properties ) 

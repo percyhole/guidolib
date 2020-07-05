@@ -30,24 +30,6 @@
         <MODULEPATH id="juce_core" path="../../../../../../juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <XCODE_IPHONE targetFolder="Builds/iOS" vstFolder="~/SDKs/vstsdk2.4" rtasFolder="~/SDKs/PT_80_SDK"
-                  objCExtraSuffix="JcEpwT" extraLinkerFlags="-L/Users/fober/Desktop  -lSGUIDOEngine"
-                  extraCompilerFlags="-I../../../../src/include" bigIcon="IAUjPh">
-      <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="GuidoViewer"
-                       osxCompatibility="10.6 SDK" osxArchitecture="Native"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="2" targetName="GuidoViewer"
-                       osxCompatibility="10.6 SDK" osxArchitecture="64BitUniversal"
-                       binaryPath=""/>
-      </CONFIGURATIONS>
-      <MODULEPATHS>
-        <MODULEPATH id="juce_gui_basics" path="../../../../../../juce/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../../../../../juce/modules"/>
-        <MODULEPATH id="juce_events" path="../../../../../../juce/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../../../../../juce/modules"/>
-        <MODULEPATH id="juce_core" path="../../../../../../juce/modules"/>
-      </MODULEPATHS>
-    </XCODE_IPHONE>
     <VS2005 targetFolder="Builds/VisualStudio2005" vstFolder="c:\SDKs\vstsdk2.4"
             rtasFolder="c:\SDKs\PT_80_SDK" libraryType="1" extraCompilerFlags="-I../../JuceLibraryCode -I../../../Device -IF:\src\juce -I../../../../src/include"
             extraLinkerFlags="../../../../cmake/Debug/GUIDOEngine.lib" bigIcon="IAUjPh">
@@ -82,15 +64,26 @@
         <MODULEPATH id="juce_core" path="/home/fober/src/juce/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
+    <VS2019 targetFolder="Builds/VisualStudio2019" extraLinkerFlags="&#10;GUIDOEngineD.lib">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" headerPath="..\..\..\..\..\src\engine\include&#10;..\..\..\Device&#10;..\..\..\..\..\src\mdi2guido\include&#10;..\..\..\..\..\src\mdi2guido\lib&#10;..\..\..\..\..\src\engine\abstract&#10;..\..\..\..\..\src\midisharelight"
+                       libraryPath="..\..\..\..\..\build\lib\Debug&#10;..\..\..\..\..\src\midisharelight\win32"
+                       winArchitecture="Win32" useRuntimeLibDLL="0"/>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="..\..\..\..\..\src\engine\include&#10;..\..\..\Device&#10;..\..\..\..\..\src\mdi2guido\include&#10;..\..\..\..\..\src\mdi2guido\lib&#10;..\..\..\..\..\src\engine\abstract&#10;..\..\..\..\..\src\midisharelight"
+                       libraryPath="..\..\..\..\..\build\lib\Release&#10;..\..\..\..\..\src\midisharelight\win32"
+                       winArchitecture="Win32"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_gui_basics" path="../../juce"/>
+        <MODULEPATH id="juce_graphics" path="../../juce"/>
+        <MODULEPATH id="juce_events" path="../../juce"/>
+        <MODULEPATH id="juce_data_structures" path="../../juce"/>
+        <MODULEPATH id="juce_core" path="../../juce"/>
+      </MODULEPATHS>
+    </VS2019>
   </EXPORTFORMATS>
   <MAINGROUP id="cQ5GjM" name="GuidoViewer">
     <GROUP id="r7RLot" name="Source">
-      <FILE id="J9cbJu" name="MIDI2GMNConverter.h" compile="0" resource="0"
-            file="../../../src/midi2guido/lib/MIDI2GMNConverter.h"/>
-      <FILE id="SfkzIb" name="MIDI2GMNConverter.cpp" compile="1" resource="0"
-            file="../../../src/midi2guido/lib/MIDI2GMNConverter.cpp"/>
-      <FILE id="OOeYzl" name="Midi2GUIDO.h" compile="0" resource="0" file="../../../src/midi2guido/include/Midi2GUIDO.h"/>
-      <FILE id="FywZwb" name="Midi2GUIDO.cpp" compile="1" resource="0" file="../../../src/midi2guido/lib/Midi2GUIDO.cpp"/>
       <FILE id="ftyN5Q" name="GuidoViewer.cpp" compile="1" resource="0" file="Source/GuidoViewer.cpp"/>
       <FILE id="CXBTtP" name="GuidoViewer.h" compile="0" resource="0" file="Source/GuidoViewer.h"/>
       <FILE id="IAUjPh" name="gmnicon.png" compile="0" resource="1" file="Ressources/gmnicon.png"/>
@@ -118,5 +111,6 @@
   </MODULES>
   <LIVE_SETTINGS>
     <OSX/>
+    <WINDOWS/>
   </LIVE_SETTINGS>
 </JUCERPROJECT>

@@ -18,7 +18,7 @@
 #include "GuidoViewer.h"
 #include "MainWindow.h"
 
-#include "../../../src/midi2guido/include/Midi2GUIDO.h"
+//#include "../../../src/midi2guido/include/Midi2GUIDO.h"
 
 using namespace std;
 using namespace juce;
@@ -223,46 +223,46 @@ void GuidoViewer::setFile (String file)
 //-------------------------------------------------------------------------------
 void GuidoViewer::importFile (String file)
 {
-    if (file.length()) {
-
-        string gmnCode;
-        GuidoErrCode err = GuidoMIDIFile2AR (file.getCharPointer(), 0, gmnCode);
-        DBG(" ------------- \n" << gmnCode << "\n------------");
-//        const char* gmnCode = "{ [ { f, e2 } ], \
-//          [ \\staff<1>  \\stemsDown \\noteFormat<dx=-0.7hs>( { a, h&0 } ) ] ,\
-//            \
-//        [ \\staff<2> \\noteFormat<color=\"blue\">( { c, e, g, a } ) ]  }";
-        
-//        const char* gmnCode = "[\\meter<\"4/4\"> \\stemAuto c3*1/2 d2*1/8 c2*1/8 a1*1/2 c3*1/4 d2*1/8 c1*1/8 c3*1/4]";
-//        if (err == guidoNoErr)
-//        {
-//            GuidoErrCode err = setGMNCode (gmnCode);
-            err = setGMNCode (gmnCode.c_str());
-        
-            if (err == guidoNoErr)
-            {
-                fWindow->setName (file);
-            }
-            else
-            {
-                String msg = GuidoGetErrorString (err);
-                if (err == guidoErrParse) {
-                    msg += " line ";
-                    msg += GuidoGetParseErrorLine();
-                }
-                AlertWindow::showMessageBoxAsync (AlertWindow::WarningIcon, "Error", msg, "OK", this);
-            }
-//        }
-//        else
-//        {
-//            String msg = GuidoGetErrorString (err);
-//            if (err == guidoErrParse) {
-//                msg += " line ";
-//                msg += GuidoGetParseErrorLine();
+//    if (file.length()) {
+//
+//        string gmnCode;
+//        GuidoErrCode err = GuidoMIDIFile2AR (file.getCharPointer(), 0, gmnCode);
+//        DBG(" ------------- \n" << gmnCode << "\n------------");
+////        const char* gmnCode = "{ [ { f, e2 } ], \
+////          [ \\staff<1>  \\stemsDown \\noteFormat<dx=-0.7hs>( { a, h&0 } ) ] ,\
+////            \
+////        [ \\staff<2> \\noteFormat<color=\"blue\">( { c, e, g, a } ) ]  }";
+//        
+////        const char* gmnCode = "[\\meter<\"4/4\"> \\stemAuto c3*1/2 d2*1/8 c2*1/8 a1*1/2 c3*1/4 d2*1/8 c1*1/8 c3*1/4]";
+////        if (err == guidoNoErr)
+////        {
+////            GuidoErrCode err = setGMNCode (gmnCode);
+//            err = setGMNCode (gmnCode.c_str());
+//        
+//            if (err == guidoNoErr)
+//            {
+//                fWindow->setName (file);
 //            }
-//            AlertWindow::showMessageBoxAsync (AlertWindow::WarningIcon, "Error", msg, "OK", this);
-//        }
-    }
+//            else
+//            {
+//                String msg = GuidoGetErrorString (err);
+//                if (err == guidoErrParse) {
+//                    msg += " line ";
+//                    msg += GuidoGetParseErrorLine();
+//                }
+//                AlertWindow::showMessageBoxAsync (AlertWindow::WarningIcon, "Error", msg, "OK", this);
+//            }
+////        }
+////        else
+////        {
+////            String msg = GuidoGetErrorString (err);
+////            if (err == guidoErrParse) {
+////                msg += " line ";
+////                msg += GuidoGetParseErrorLine();
+////            }
+////            AlertWindow::showMessageBoxAsync (AlertWindow::WarningIcon, "Error", msg, "OK", this);
+////        }
+//    }
 }
 
 //-------------------------------------------------------------------------------

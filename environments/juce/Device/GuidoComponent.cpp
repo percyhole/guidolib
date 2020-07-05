@@ -27,12 +27,11 @@
 #include "DebugDevice.h"
 #endif
 
-#include "../../../src/midi2guido/include/Midi2GUIDO.h"
+//#include "../../../src/midi2guido/include/Midi2GUIDO.h"
 
 using namespace std;
 
-static JuceSystem gSystem(0);
-static JuceDevice gDevice(0, &gSystem);
+
 
 //==============================================================================
 GuidoComponent::GuidoComponent () 
@@ -52,6 +51,9 @@ GuidoComponent::~GuidoComponent()
 //==============================================================================
 GuidoErrCode GuidoComponent::GuidoInit (const char* textfont, const char* guidofont)
 {
+	static JuceSystem gSystem(0);
+	static JuceDevice gDevice(0, &gSystem);
+
 	GuidoInitDesc desc;
 	desc.graphicDevice = &gDevice;
 	desc.musicFont	= guidofont;

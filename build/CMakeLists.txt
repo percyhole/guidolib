@@ -63,14 +63,17 @@ endif()
 # windows specific part
 #########################################
 if (WIN32)
+	message (STATUS "WIN32 detected.")
 	set( DEFS ${DEFS} GUIDOExport)
 	if(MSVC)
+		message (STATUS "MSVC detected.")
 		set( DEFS ${DEFS} MSVC )
 	else()
 		set( DEFS ${DEFS} GCC )
 	endif()
 
 	if (${CMAKE_GENERATOR} MATCHES ".*Win64")
+		message (STATUS "WIN64 detected.")
 		set( DEFS ${DEFS} WIN64 )
 		set (WIN64 1)
 		set (target GUIDOEngine64)
